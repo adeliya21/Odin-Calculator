@@ -40,9 +40,16 @@ document.addEventListener('DOMContentLoaded', function(){
 
     // call calculate function
     equal.addEventListener('click', function() {
-        calculate();
-        previousScreen.textContent = ''; // update the previousScreen to empty
-        currentScreen.textContent = previousValue; // update the currentScreen to result of calculate stored in previousValue
+        if (previousValue != '' && currentValue != '') {
+            calculate();
+            previousScreen.textContent = ''; // update the previousScreen to empty
+            if (previousValue.length < 5){
+                currentScreen.textContent = previousValue; // update the currentScreen to result of calculate stored in previousValue
+            }
+            else {
+                currentScreen.textContent = previousValue.slice(0,5) + '...'; 
+            }
+        }
     })
 })
 

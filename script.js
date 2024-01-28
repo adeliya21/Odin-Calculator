@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function(){
     // ------------- Store all HTML components in JS --------------
     let clear = document.querySelector('#clear-btn');
     let equal = document.querySelector('.equal');
-    let deciaml = document.querySelector('.deciaml');
+    let decimal = document.querySelector('.decimal');
 
     let numbers = document.querySelectorAll('.number');
     let operators = document.querySelectorAll('.operator');
@@ -18,11 +18,13 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
     // ------------------- FUNCTIONS -------------------------------
+    // handle Numbers
     numbers.forEach((number) => number.addEventListener('click', function(e) {
         handleNumber(e.target.textContent) //  handleNumber function
         currentScreen.textContent = currentValue; // update the current screen to show value of current global variable
     }))
 
+    // handle Operator
     operators.forEach((op) => op.addEventListener('click', function(e) {
         handleOperator(e.target.textContent); //  handleOperator function
         previousScreen.textContent = previousValue + ' ' + operator; // update the previous screen to show previous number and operator
@@ -38,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function(){
         previousScreen.textContent = previousValue;
     })
 
-    // call calculate function
+    // calculate function
     equal.addEventListener('click', function() {
         if (previousValue != '' && currentValue != '') {
             calculate();
@@ -51,16 +53,21 @@ document.addEventListener('DOMContentLoaded', function(){
             }
         }
     })
+
+    // handle Decimal function
+    decimal.addEventListener('click', function() {
+        handleDecimal();
+    })
 })
 
-// handleNumber function
+// handle Number function
 function handleNumber(num) {
     if (currentValue.length < 5) { 
         currentValue += num; // change the global varibale to store input number
     }
 }
 
-// handleOperator function
+// handle Operator function
 function handleOperator(op) {
     operator = op; // change the global variable to store operator and 
     previousValue = currentValue; // update previous value
@@ -95,4 +102,11 @@ function calculate() {
 // round function
 function roundNumber(num) {
     return Math.round(num * 1000) / 1000;
+}
+
+// handle Decimal fucntion
+function handleDecimal() {
+    if (!currentValue.includes(".")) {
+        currentValue += ".";
+    }
 }

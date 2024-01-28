@@ -26,6 +26,15 @@ document.addEventListener('DOMContentLoaded', function(){
         previousScreen.textContent = previousValue + ' ' + operator; // update the previous screen to show previous number and operator
         currentScreen.textContent = currentValue; // update the current screen to current number which is empty
     }))
+
+    // clear function
+    clear.addEventListener('click', function() {
+        operator = '';
+        currentValue = '';
+        previousValue =  '';
+        currentScreen.textContent = currentValue;
+        previousScreen.textContent = previousValue;
+    })
 })
 
 // change the global varibale to store input number
@@ -41,3 +50,4 @@ function handleOperator(op) {
     previousValue = currentValue;
     currentValue = '';
 }
+

@@ -4,8 +4,8 @@ let currentValue = '';
 let previousValue = '';
 
 
-// Store all HTML components in JS
 document.addEventListener('DOMContentLoaded', function(){
+    // ------------- Store all HTML components in JS --------------
     let clear = document.querySelector('#clear-btn');
     let equal = document.querySelector('.equal');
     let deciaml = document.querySelector('.deciaml');
@@ -16,13 +16,15 @@ document.addEventListener('DOMContentLoaded', function(){
     let previousScreen = document.querySelector('.previous');
     let currentScreen = document.querySelector('.current');
 
+
+    // ------------------- FUNCTIONS -------------------------------
     numbers.forEach((number) => number.addEventListener('click', function(e) {
-        handleNumber(e.target.textContent) // change the global varibale to store input number
-        currentScreen.textContent = currentValue; // update the screen to show value of global variable
+        handleNumber(e.target.textContent) //  handleNumber function
+        currentScreen.textContent = currentValue; // update the current screen to show value of current global variable
     }))
 
     operators.forEach((op) => op.addEventListener('click', function(e) {
-        handleOperator(e.target.textContent); // change the global variable to store operator and update previous and current values
+        handleOperator(e.target.textContent); //  handleOperator function
         previousScreen.textContent = previousValue + ' ' + operator; // update the previous screen to show previous number and operator
         currentScreen.textContent = currentValue; // update the current screen to current number which is empty
     }))
@@ -35,19 +37,55 @@ document.addEventListener('DOMContentLoaded', function(){
         currentScreen.textContent = currentValue;
         previousScreen.textContent = previousValue;
     })
+
+    // call calculate function
+    equal.addEventListener('click', function() {
+        calculate();
+        previousScreen.textContent = ''; // update the previousScreen to empty
+        currentScreen.textContent = previousValue; // update the currentScreen to result of calculate stored in previousValue
+    })
 })
 
-// change the global varibale to store input number
+// handleNumber function
 function handleNumber(num) {
     if (currentValue.length < 5) { 
-        currentValue += num;
+        currentValue += num; // change the global varibale to store input number
     }
 }
 
-// change the global variable to store operator and update previous and current values
+// handleOperator function
 function handleOperator(op) {
-    operator = op;
-    previousValue = currentValue;
-    currentValue = '';
+    operator = op; // change the global variable to store operator and 
+    previousValue = currentValue; // update previous value
+    currentValue = ''; // update current value
 }
 
+// calcualte function
+function calculate() {
+    previousValue = Number(previousValue);
+    currentValue = Number(currentValue);
+
+    if (operator === '+') {
+        previousValue += currentValue;
+    } 
+    else if (operator === '-') {
+        previousValue -= currentValue;
+    }
+    else if (operator === '/') {
+        previousValue /= currentValue;
+    }
+    else if (operator === 'x') {
+        previousValue *= currentValue;
+    }
+    // after calculate, the global previousValue stores the result of calcualtion
+    // and the global currentValue also stores the result as it may be used for next operations
+    // round the result of calculate
+    previousValue = roundNumber(previousValue);
+    previousValue = previousValue.toString(); 
+    currentValue = previousValue.toString();
+}
+
+// round function
+function roundNumber(num) {
+    return Math.round(num * 1000) / 1000;
+}

@@ -19,7 +19,7 @@ body{
     border-radius: 10px;
 }
 
-.numbre:hover{
+.number:hover{
     background-color: lightgreen;
 }
 
@@ -33,12 +33,12 @@ body{
 }
 
 .decimal{
-    border: 1px solid yellow;
+    border: 1px solid purple;
     border-radius: 10px;
 }
 
-.deciaml:hover{
-    background-color: lightyellow;
+.decimal:hover{
+    background-color: plum;
 }
 
 .equal{
